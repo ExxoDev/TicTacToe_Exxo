@@ -10,14 +10,9 @@ import java.util.Properties;
 
 public class Settings {
 
-int test123;
-int bla;
-  	
 	public Settings() throws FileNotFoundException, IOException{
 		ControllFile();
 		Load();
-		Average();
-		
 	}
 	
 	/**
@@ -48,10 +43,10 @@ int bla;
 	
 	static String Gamename = "Tic Tac Toe";
 	static int GameID = 0;
-	public static double LoadedWins = 1.0;
-	public static double NewWins = 2.0;
+	public static double LoadedWins = 0.0;
+	public static double NewWins = 0.0;
 	public static double LoadedLoses = 0.0;
-	public static double NewLoses = 1.0;
+	public static double NewLoses = 0.0;
 	static boolean file;
 	
 	public static double P2_LoadedWins = 1.0;
@@ -132,25 +127,31 @@ int bla;
 
 	}
 
-	public static double Average(){
-		try {
+	// Function to calculate the average Win/Lose percentage [ 1 = Player 1 / 2 = Player 2 ]
+	public static double Average(int Player){
+			
+		if(AllWins+AllLoses == 0 || P2_AllLoses + P2_AllWins == 0) {
+			System.out.println("Error at calculating Average Win/Lose");
+			System.out.println("Maybe no games were played");
+		} else {
+			
 			average_win_lose = (AllLoses / (AllWins + AllLoses));
 			P2_average_win_lose = (P2_AllLoses / (P2_AllWins + P2_AllLoses));
-			}
-		catch (Exception e) {
-			System.out.println("Error at calculating Average Win/Lose");
-		}
+			
 		percent_average_win_lose = NumberFormat.getPercentInstance().format( average_win_lose );
-		P2_percent_average_win_lose = NumberFormat.getPercentInstance().format( P2_average_win_lose );
-		return average_win_lose;
+		P2_percent_average_win_lose = NumberFormat.getPercentInstance().format( P2_average_win_lose ); }
+		
+		return average_win_lose;	
 	}
 	
+	// Function to change the PlayerNames
 	public String ChangePlayerName(String NewPlayer, int playerID){
 		if(playerID == 1){
 		Player1 = NewPlayer;
-		return NewPlayer; } else {
+		} else {
 		Player2 = NewPlayer;
-		return NewPlayer;
 		}
+		
+		return NewPlayer;
 	}
 }
